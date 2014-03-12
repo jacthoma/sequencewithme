@@ -1,0 +1,104 @@
+_Sequence Project Document
+	also translate to japanese
+	
+Privacy Policy
+	<TODO>
+
+_sequence 
+	Make music with friends old and new.
+
+Views
+	index.html
+		[home] -> index.html, [about] -> about ... (usr)(pass)[login] or [sign up]
+
+		<title>		_sequence
+		<subtitle>	Make music with friends old and new.
+
+		(( _sequence )) {
+			view with removed functionality:
+			X	multi-users
+			X	save
+			X	Upload
+		}
+		Sign up {
+
+			Login or Sign Up to sequence with friends, save projects, export audio, and upload your
+			own samples!
+
+			(email)
+			(pass)
+			(pass)
+			[Sign Up] -> Welcome
+		}
+
+	About 
+		_sequence
+			Simple and intuative tool allowing you to create music colabratively across the internet
+		Tutorials
+			Using _sequence
+			Uploading samples
+				Drums
+				Single clip -> instrument
+			Exporting audio
+				Export project
+				Export track
+		FAQ
+			Link to tutorials often..
+		Team
+			It's just me! ...
+			<TODO FUTURE>
+
+	Welcome
+		You're almost there! Just click the link in the confirmation email you've been sent!
+		Thanks for signing up (: I hope you have a wonderful time here
+
+Features
+	WishList
+		Sequence 
+			Transport controll (GLOBAL)
+				Temp control
+				Metronome
+				(stop)
+				(play)
+				Scale / all notes
+			Sequence View
+				Clip (near transport)
+					click and hold to grab clip 
+					Fade from sequence view to clip sequence view
+					Maintain clip on mouse location
+					Clip can be dropped into sequence view
+				Sample Library
+					Clips you've uploaded
+					preset clips
+					Folders?
+					Drag sample to clip area
+					Upload
+				Drums
+					Clips
+						<volume indicator> <volume control> <names>
+					Grid 
+						Change length in transport (Sequence) 1 bar, 2 bar, 4 bar, 8 bar
+						Change subdivision in transport 
+							(FUTURE)triplet support
+				FX
+					<TODO>
+				Instruments
+					<TODO>
+					Single sample -> instrument
+					
+			Clip Sequence (WORKING TITLE)
+				Export project (transport)
+					?? Start to last segment
+					?? Select length to export
+				Channel
+					<volume indicator> <volume control> <name>
+				Grid
+					Minimum 1 bar blocks
+					?? Change size
+					?? Scroll through
+						?? MAC SCROLL SUPPORT
+		WebApp
+			Sign Up
+			Login
+Ideas
+	Over lay sequences, changes the color and combines them

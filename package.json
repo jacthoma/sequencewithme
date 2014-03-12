@@ -1,0 +1,21 @@
+{
+  "name": "sequencewithme",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "socket.io": "0.9.16",
+    "express": "~3.4.4",
+    "logfmt": "~0.21.0"
+  },
+  "description": "An online Sequencer that allows us to make music together",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Sequencer"
+  ],
+  "author": "James Thomas",
+  "license": "BSD-2-Clause"
+}

@@ -1,0 +1,12 @@
+/* Put your CSS here */
+html, body {
+    margin: 20px;
+}
+
+.test{
+	width:255px;
+	height:255px;
+	background:black;
+	color:black;
+	cursor:move;
+}

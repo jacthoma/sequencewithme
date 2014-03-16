@@ -1,0 +1,27 @@
+/* main.css */
+body {
+	background-color: black;
+	color:white;
+  	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  	font-weight: 10;
+}
+
+button {
+	border: 0px;
+   	background: #ffffff;
+   	padding: 3px 13px;
+   	color: #000000;
+   	font-size: 17px;
+   	font-family: Helvetica, Arial, Sans-Serif;
+   	text-decoration: none;
+   	vertical-align: middle;
+}
+button:hover {
+  	border-top-color: orange;
+   	background: orange;
+   	color: #ffffff;
+}
+button:active {
+  	border-top-color: #ffffff;
+   	background: #ffffff;
+}

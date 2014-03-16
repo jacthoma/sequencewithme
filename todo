@@ -11,7 +11,7 @@ Views
 	index.html
 		[home] -> index.html, [about] -> about ... (usr)(pass)[login] or [sign up]
 
-		<title>		_sequence
+		<title>		sequencewith.me
 		<subtitle>	Make music with friends old and new.
 
 		(( _sequence )) {

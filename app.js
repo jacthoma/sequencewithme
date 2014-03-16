@@ -14,6 +14,10 @@ app.get('/js/canvas.js', function (req, res) {
     res.sendfile(__dirname + '/js/canvas.js');
 });
 
+app.get('/css/main.css', function (req, res) {
+    res.sendfile(__dirname + '/css/main.css')
+});
+
 // jQuery
 app.get('/js/jquery-1.9.1.js', function (req, res) {
 	res.sendfile(__dirname + '/js/jquery-1.9.1.js');

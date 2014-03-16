@@ -3,46 +3,16 @@
   <meta charset="utf-8">
   <title>_sequence</title>
   <script type="text/javascript" src="js/canvas.js"></script>
-  <style>
-  	body {
-background-color: black;
-color:white;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 10;
-  	}
- button {
-   border: 0px;
-   background: #ffffff;
-   padding: 3px 13px;
-   color: #000000;
-   font-size: 17px;
-   font-family: Helvetica, Arial, Sans-Serif;
-   text-decoration: none;
-   vertical-align: middle;
-   }
-button:hover {
-   border-top-color: orange;
-   background: orange;
-   color: #ffffff;
-   }
-button:active {
-   border-top-color: #ffffff;
-   background: #ffffff;
-   }
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<!-- <body onload="init();"> -->
 <body>
-	<!-- !! jQuery, change to local !! -->
-	<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
-	<!-- Local jQuery -->
-	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/jquery-1.9.1.js"></script> 
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
 	<!-- Main view -->
 	<div id="top">
-		<span style="font-size: 200%;">_sequence</span>
-		<span style="position:relative; left:173px">
+		<span style="font-size: 200%;">sequencewith.me</span>
+		<span style="padding-left: 80px">
 	    <button type="button" onclick="sequence.play_pause()">❙❙ / ►</button>
 
 	    <button type="button" onclick="sequence.refresh()">reset</button>
@@ -56,7 +26,7 @@ button:active {
   	<script>
   		var space = false;
 		$(document).ready(function() {
-
+			// Handle window resizing
 			location();
 			$(window).resize(location
 			);
@@ -66,7 +36,7 @@ button:active {
 				$("#top").offset({left: offset.left});
 			}
 
-
+			// Space bar to stop/star
 			$(document).keydown(function(e) {
 				if (e.keyCode == '32') {
 					e.preventDefault()
@@ -76,36 +46,11 @@ button:active {
 			var socket = io.connect();
 			init(socket);
 
+			// Recieve a state
 			socket.on('new state', function(data){
 				sequence.recieve(data);
 			});
-
-
 		});
-
   	</script>
-
-  	<!-- client side socket.io -->
-  	<!-- move to sequence      -->
-  	<!--
-	<script>
-		jQuery(function($){
-			var socket = io.connect();
-			var $messageForm = $('#send-message');
-			var $messageBox = $('#message');
-			var $chat = $('#chat');
-			
-			$messageForm.submit(function(e){
-				e.preventDefault();
-				socket.emit('send message', $messageBox.val());
-				$messageBox.val('');
-			});
-			
-			socket.on('new message', function(data){
-				$chat.append(data + "<br/>");
-			});
-		});
-	</script>
-	-->
 </body>
 </html>

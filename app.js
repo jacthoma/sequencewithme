@@ -10,8 +10,8 @@ app.get('/', function(req, res){
 	res.sendfile(__dirname + '/index.html');
 });
 
-app.get('/js/canvas.js', function (req, res) {
-    res.sendfile(__dirname + '/js/canvas.js');
+app.get('/js/sequence.js', function (req, res) {
+    res.sendfile(__dirname + '/js/sequence.js');
 });
 
 app.get('/css/main.css', function (req, res) {

@@ -1,14 +1,15 @@
+/* James Thomas, jacthoma@ucsc.edu
+ * main datascrute and sounds for the sequencer
+ */
 var kick = new Audio("sounds/02_KICK_2.wav");
 var snare = new Audio("sounds/03_SNARE_1.wav");
 var hat = new Audio("sounds/ClosedHat10.wav");
 var shake = new Audio("sounds/shake.wav");
 var bass = new Audio("sounds/808KickDrum3.wav");
-
 // New Sounds
 var bassDrum1 = new Audio("sounds/bassDrum1.wav");
 var bassDrum3 = new Audio("sounds/bassDrum3.wav");
 var bassDrum5 = new Audio("sounds/bassDrum5.wav");
-
 // synth
 var synth_A_ = new Audio("sounds/synth1_A_.wav");
 var synth_C = new Audio("sounds/synth1_C.wav");
@@ -50,7 +51,6 @@ function Sequence(canvas, socket) {
   this.height = canvas.height;
   this.ctx = canvas.getContext('2d');
   this.update = false;
-
   // fix mouse coordinate problem
   var paddingLeft, paddingTop, borderLeft, borderTop;
   if (document.defaultView && document.defaultView.getComputedStyle) {
@@ -59,7 +59,6 @@ function Sequence(canvas, socket) {
     this.borderLeft  = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderLeftWidth'], 10)  || 0;
     this.borderTop   = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderTopWidth'], 10)   || 0;
   }
-
   // Correct for injected html
   var html = document.body.parentNode;
   this.htmlTop = html.offsetTop;
@@ -110,32 +109,26 @@ function Sequence(canvas, socket) {
   this.interval = 25;
   setInterval(function() { self.draw(); }, self.interval);
 }
-
 Sequence.prototype.addButton = function(button) {
   this.buttons.push(button);
   this.actives.push(false);
 }
-
 Sequence.prototype.clear = function() {
   this.ctx.clearRect(0, 0, this.width, this.height);
 }
-
 // socket it
 Sequence.prototype.send = function(data) {
   socket.emit('send state', data);
 }
-
-Sequence.prototype.recieve = function(data) { 
+Sequence.prototype.receive = function(data) { 
   this.actives = data;
 }
-
 // update the canvas
 Sequence.prototype.draw = function() {
   var column_h = this.column_h;
   var ctx = this.ctx;
   var buttons = this.buttons;
   this.clear();
-  
 
   if(this.play){
     this.time++;
@@ -143,7 +136,6 @@ Sequence.prototype.draw = function() {
       this.time = 0;
     }
   }
-
   if(this.time == 0 && this.play){
     for(var i = (this.column * column_h); i < (this.column * column_h + column_h); i++){
 
@@ -157,7 +149,6 @@ Sequence.prototype.draw = function() {
         }
       }
 
-
       buttons[i].play = true;
 
       if(this.column == 0){
@@ -169,11 +160,9 @@ Sequence.prototype.draw = function() {
 
     this.column++;
   }
-
   if(this.column == 16){
     this.column = 0;
   }
-
   // draw all buttons
   var l = buttons.length;
   for (var i = 0; i < l; i++) {
@@ -269,6 +258,7 @@ function init(socket) {
   }
   for(var i = 0; i < sequence.buttons.length; i++){
     for(var j = 0; j <= sequence.column_h; j++){
+      // drums
       if((i + j) % sequence.column_h == 0){
         sequence.buttons[i].row = j;
       }
@@ -293,8 +283,6 @@ function init(socket) {
       if(sequence.buttons[i].row == 7){
         sequence.buttons[i].sound = bassDrum5;
       }
-
-
       // synth
       if(sequence.buttons[i].row == 8){
         sequence.buttons[i].sound = synth_A_;

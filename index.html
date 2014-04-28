@@ -1,56 +1,130 @@
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>sequencewithme</title>
-  <script type="text/javascript" src="js/sequence.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-</head>
-<body>
-	<script type="text/javascript" src="js/jquery-1.9.1.js"></script> 
-	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<head>
+		<meta charset="utf-8">
+		<title>sequencewithme</title>
+		<script type="text/javascript" src="js/sequence.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body>
+		<!-- facebook 
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1443232132582745";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		-->
 
-	<!-- Main view -->
-	<div id="top">
-		<span style="font-size: 200%;">sequencewith.me</span>
-		<span style="padding-left: 80px">
-	    <button type="button" onclick="sequence.play_pause()">❙❙ / ►</button>
+		<script type="text/javascript" src="js/jquery-1.9.1.js"></script> 
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<!-- Main view -->
+		<div id="top">
+			<span style="font-size: 200%;">sequencewith.me</span>
+			<span style="padding-left: 80px">
+		    	<button type="button" onclick="sequence.play_pause()">❙❙ / ►</button>
+		    	<button type="button" onclick="sequence.refresh()">reset</button>
+		    </span>
+	  	</div>
+	  	</center>
+	  	<div>
+		  	<center><canvas id="MainCanvas" width="470" height="470"></canvas></center>
+		</div>
 
-	    <button type="button" onclick="sequence.refresh()">reset</button>
-	    </span>
-  	</div>
-  	</center>
-  	<div>
-	  	<center><canvas id="MainCanvas" width="470" height="470"></canvas></center>
-	</div>
+		<div id="bottom">
+			<!-- about -->
+			<a href="#" class="about">about</a>
+			<a href="#" class="contact">contact</a>
+		  	<div class="about_content">
+		  		Sequencewith.me is an online musical step sequencer that allows users create music
+		  		interactively with one another in real time.
+		  		<br/>
+		  		<br/>
+		  		Click on buttons in the grid to activate or deactive notes. Use the spacebar or transport controllers to pause and play the sequence. Enjoy!
+		  	</div>
+		  	<!-- contanct -->
+		  	<div class="contact_content">
+		  		I would love to hear your feedback! 
+		  		<br/>
+		  		Please feel free to contact me:
+		  		<br/>
+		  		<br/>
+		  		James Thomas
+		  		<br/>
+		  		jacthoma@ucsc.edu
+		  	</div>
+		</div>
 
-  	<script>
-  		var space = false;
-		$(document).ready(function() {
-			// Handle window resizing
-			location();
-			$(window).resize(location
-			);
-			function location(){
-				var p = $("#MainCanvas");
-				var offset = p.offset();
-				$("#top").offset({left: offset.left});
-			}
+	  	<div id="copyright">
+	  		<!-- facebook
+	  		<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></div>
+	  		-->
+	  		©2014 James Thomas. All rights reserved.
+	  	</div>
 
-			// Space bar to stop/star
-			$(document).keydown(function(e) {
-				if (e.keyCode == '32') {
-					e.preventDefault()
-					sequence.space();
+	  	<script>
+	  		var space = false;
+			$(document).ready(function() {
+				// hide content 
+				//$(".about_content").hide();
+				$(".about").css("color", "orange");
+				$(".contact_content").hide();
+
+				// Handle window resizing
+				location();
+				$(window).resize(location
+				);
+				function location(){
+					var p = $("#MainCanvas");
+					var offset = p.offset();
+					$("#top").offset({left: offset.left});
+					$("#bottom").offset({left: offset.left});
+					$("#copyright").offset({left: offset.left});
 				}
+				// Space bar to stop/star
+				$(document).keydown(function(e) {
+					if (e.keyCode == '32') {
+						e.preventDefault()
+						sequence.space();
+					}
+				});
+				var socket = io.connect();
+				init(socket);
+				// Recieve a state
+				socket.on('new state', function(data){
+					sequence.receive(data);
+				});
+				// show and hide content
+				$(".about").click(function(){
+					if($(".contact_content").is(":visible")){
+						$(".contact_content").slideToggle();
+						$(".contact").css("color", "white");
+					}
+					// alternate color when selected
+					if($(".about_content").is(":visible")){
+						$(".about").css("color", "white");
+					} else {
+						$(".about").css("color", "orange");
+					}
+					// show content
+					$(".about_content").slideToggle();
+				});
+				$(".contact").click(function(){
+					if($(".about_content").is(":visible")){
+						$(".about_content").slideToggle();
+						$(".about").css("color", "white");
+					}
+					// alternate color when selected
+					if($(".contact_content").is(":visible")){
+						$(".contact").css("color", "white");
+					} else {
+						$(".contact").css("color", "orange");
+					}
+					// show content
+					$(".contact_content").slideToggle();
+				})
 			});
-			var socket = io.connect();
-			init(socket);
-
-			// Recieve a state
-			socket.on('new state', function(data){
-				sequence.recieve(data);
-			});
-		});
-  	</script>
-</body>
+	  	</script>
+	</body>
 </html>

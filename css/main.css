@@ -2,8 +2,26 @@
 body {
 	background-color: black;
 	color:white;
-  	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  	font-weight: 10;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 10;
+}
+
+a:link {
+  color:white; 
+  text-decoration: none;
+}
+a:hover {color: orange !important; }
+a:visited {color:white; }
+
+
+#top {
+  width:475;
+}
+
+#bottom {
+  margin: 0;
+  padding: 0;
+  width:470px;
 }
 
 button {
@@ -24,4 +42,10 @@ button:hover {
 button:active {
   	border-top-color: #ffffff;
    	background: #ffffff;
+}
+
+#copyright {
+  position:absolute;
+  bottom:0;
+  color:gray;
 }

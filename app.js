@@ -1,8 +1,9 @@
 var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
-	io = require('socket.io').listen(server);
-	
+	io = require('socket.io').listen(server),
+    sequence = [];
+
 server.listen(process.env.PORT || 5000);
 
 
@@ -81,7 +82,11 @@ app.get('/sounds/synth1_E2.wav', function (req, res) {
 //
 
 io.sockets.on('connection', function(socket){
+    // Send the current sequence on connection
+    io.sockets.emit('initial state', sequence);
+
 	socket.on('send state', function(data){
+        sequence = data;
 		io.sockets.emit('new state', data);
 	});
 });

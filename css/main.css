@@ -4,10 +4,11 @@ body {
 	color:white;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 10;
+  margin-top: 0;
 }
 
 a:link {
-  color:white; 
+  color:white;
   text-decoration: none;
 }
 a:hover {color: orange !important; }
@@ -15,7 +16,12 @@ a:visited {color:white; }
 
 
 #top {
-  width:475;
+  width: 470px;
+  margin-top: 15px;
+}
+
+.title {
+    font-size: 28px;
 }
 
 #bottom {
@@ -32,7 +38,11 @@ button {
    	font-size: 17px;
    	font-family: Helvetica, Arial, Sans-Serif;
    	text-decoration: none;
-   	vertical-align: middle;
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    width: 40px;
+    height: 25px;
 }
 button:hover {
   	border-top-color: orange;
@@ -44,8 +54,33 @@ button:active {
    	background: #ffffff;
 }
 
+.about_content {
+    padding-top: 15px;
+}
+
 #copyright {
-  position:absolute;
-  bottom:0;
   color:gray;
+  padding-top: 15px;
+}
+
+.loading-mask {
+    position: absolute;
+    top: 263px;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    animation: pulse 3s infinite;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+  0% {
+    color: white;
+  }
+  50% {
+      color: #3CACFF;
+  }
+  100% {
+    color: white;
+  }
 }

@@ -31,6 +31,7 @@ function Button(x, y, w, fill) {
   this.play;
   this.sound;
   this.row;
+  this.locked;
 }
 
 Button.prototype.draw = function(ctx) {
@@ -51,6 +52,7 @@ function Sequence(canvas, socket) {
   this.height = canvas.height;
   this.ctx = canvas.getContext('2d');
   this.update = false;
+  this.locked = true;
   // fix mouse coordinate problem
   var paddingLeft, paddingTop, borderLeft, borderTop;
   if (document.defaultView && document.defaultView.getComputedStyle) {
@@ -63,21 +65,23 @@ function Sequence(canvas, socket) {
   var html = document.body.parentNode;
   this.htmlTop = html.offsetTop;
   this.htmlLeft = html.offsetLeft;
-  
   this.time = 0;
   this.column = 0;
   this.column_h = 16;
-  this.play = true;
   this.buttons = [];
   this.actives = [];
 
   var self = this;
-  
+
   // Don't allow elements to be selected
   canvas.addEventListener('selectstart', function(e) { e.preventDefault(); return false; }, false);
 
   //  event listener for mouse down
   canvas.addEventListener('mousedown', function(e) {
+    if (self.locked) {
+        return;
+    }
+
     var mouse = self.getMouse(e);
     var mx = mouse.x;
     var my = mouse.y;
@@ -105,11 +109,13 @@ function Sequence(canvas, socket) {
     }
   }, true);
 
-  this.selectionWidth = 2;  
+  this.selectionWidth = 2;
   this.interval = 25;
   setInterval(function() { self.draw(); }, self.interval);
 }
 Sequence.prototype.addButton = function(button) {
+  button.locked = true;
+
   this.buttons.push(button);
   this.actives.push(false);
 }
@@ -120,8 +126,22 @@ Sequence.prototype.clear = function() {
 Sequence.prototype.send = function(data) {
   socket.emit('send state', data);
 }
-Sequence.prototype.receive = function(data) { 
+Sequence.prototype.receive = function(data, unlock) {
+    var self = this;
   this.actives = data;
+
+  if (unlock) {
+      setTimeout(function () {
+          for(var i = 0; i < self.buttons.length; i++){
+              self.buttons[i].locked = false;
+          }
+
+          self.play = true;
+          self.locked = false;
+          $('.play-pause-button').text('❙❙');
+          $('.loading-mask').hide();
+      }, 1500);
+  }
 }
 // update the canvas
 Sequence.prototype.draw = function() {
@@ -169,15 +189,17 @@ Sequence.prototype.draw = function() {
 
     buttons[i].active = this.actives[i];
 
-    if(buttons[i].active){
+    if(buttons[i].locked) {
+        buttons[i].fill = '#444444';
+    } else if(buttons[i].active){
       if(buttons[i].play){
-        buttons[i].fill = 'A500FF';
+        buttons[i].fill = '#3CACFF';
       } else {
         buttons[i].fill = 'orange';
       }
     } else if(buttons[i].play){
       buttons[i].fill = "grey";
-    } else{ 
+    } else{
       buttons[i].fill = 'white';
     }
     buttons[i].draw(ctx);
@@ -190,7 +212,7 @@ Sequence.prototype.draw = function() {
 
 Sequence.prototype.getMouse = function(e) {
   var element = this.canvas, offsetX = 0, offsetY = 0, mx, my;
-  
+
   // Compute the total offset
   if (element.offsetParent !== undefined) {
     do {
@@ -212,17 +234,21 @@ Sequence.prototype.getMouse = function(e) {
 Sequence.prototype.play_pause = function(){
   if(this.play){
     this.play = false;
+    $('.play-pause-button').text('►');
   } else {
     this.play = true;
+    $('.play-pause-button').text('❙❙');
   }
 }
 
 Sequence.prototype.space = function(){
   if(this.play){
     this.play = false;
+    $('.play-pause-button').text('►');
   } else {
     this.rewind();
     this.play = true;
+    $('.play-pause-button').text('❙❙');
   }
 }
 
@@ -238,7 +264,7 @@ Sequence.prototype.rewind = function(){
   this.column = 0;
 }
 
-Sequence.prototype.refresh = function() {
+Sequence.prototype.super_secret_refresh1 = function() {
   for(var i = 0; i < this.buttons.length; i++){
     this.actives[i] = false;
     //this.buttons[i].active = false;
@@ -252,7 +278,7 @@ function init(socket) {
   /* drums */
   sequence = new Sequence(document.getElementById('MainCanvas'), socket);
   for(var i = 0; i < 16; i++) {
-  	for(var j = 0; j < 16; j++) { 
+  	for(var j = 0; j < 16; j++) {
   		sequence.addButton(new Button(i*30,j*30,20,'white'));
   	}
   }

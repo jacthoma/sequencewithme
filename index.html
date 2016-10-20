@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <meta name="description" content="Sequence with me is an online interactive musical step sequencer that allows users to create music together in real time.">
     <meta name="keywords" content="Sequencer,Music,Online">
-    <meta name="author" content="James Thomas">
     <title>sequencewithme</title>
     <script type="text/javascript" src="js/sequence.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body>
-    <!-- facebook
-		<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1443232132582745";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
-		-->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=1443232132582745";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=1443232132582745";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,6 +36,7 @@
       ga('send', 'pageview');
 
     </script>
+
     <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <!-- Main view -->
@@ -45,9 +51,6 @@
     </div>
 
     <div id="bottom">
-        <!-- about -->
-        <!-- <a href="#" class="about">about</a>
-        <a href="#" class="contact">contact</a> -->
         <div class="about_content">
             Sequencewith.me is an online musical step sequencer that allows users to create music interactively with one another in real time.
             <br/><br/>
@@ -55,25 +58,19 @@
             <br/>
             <br/> Click on buttons in the grid to activate or deactive notes. Use the spacebar or transport controls to pause and play the sequence. Enjoy!
         </div>
-        <!-- contanct -->
-        <!-- <div class="contact_content">
-            I would love to hear your feedback!
-            <br/> Please feel free to contact me:
-            <br/>
-            <br/> James Thomas
-            <br/> jacthoma@ucsc.edu
-        </div> -->
+
+        <div class="fb-share-button" data-href="http://www.sequencewith.me" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.sequencewith.me%2F&amp;src=sdkpreparse">Share</a></div>
     </div>
 
     <div id="copyright">
-        <!-- facebook
-	  		<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></div>
-	  		-->
         ©2016 Sequencewithme. All rights reserved.
     </div>
 
     <div class="loading-mask">
         Loading
+    </div>
+
+    <div class="">
     </div>
 
     <script>
@@ -151,5 +148,4 @@
         });
     </script>
 </body>
-
 </html>
